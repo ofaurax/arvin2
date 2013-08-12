@@ -16,7 +16,7 @@ td {
 </head>
 <body>
 <?php
-$sv = ''; $tv = ''; $lv = '';
+$sv = ''; $tv = ''; $lv = 0;
 if(isset($_GET['s'])) $sv = htmlspecialchars($_GET['s']);
 if(isset($_GET['t'])) $tv = (int)($_GET['t']);
 if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
@@ -65,7 +65,7 @@ switch($tv)
     case 1:
         usort($data, 'tri_par_auteur');
         break;
-    case 3:
+    case 2:
         usort($data, 'tri_par_ref');
         break;
 }
@@ -102,7 +102,11 @@ foreach($data as $l)
   $i = 0;
   foreach($l as $c)
   {
-      echo '<td>'.$c.'</td>';
+    echo '<td>';
+    if($i==0) echo '<a href="http://www.youtube.com/results?search_query='.urlencode($c).'">';
+    echo $c;
+    if($i==0) echo '</a>';
+    echo '</td>';
       if(!$lv)
       {
           $i++;
