@@ -87,9 +87,9 @@ $i = 0;
 foreach($entete as $c)
 {
     echo '<th>'.$c.'</th>';
+    $i++;
     if(!$lv)
     {
-        $i++;
         if($i>=4) break;
     }
 }
@@ -118,9 +118,9 @@ foreach($data as $l)
     echo $c;
     if($i==0) echo '</a>';
     echo '</td>';
+    $i++;
       if(!$lv)
       {
-          $i++;
           if($i>=4) break;
       }
   }
