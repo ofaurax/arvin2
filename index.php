@@ -16,6 +16,13 @@ $f = 'Archives_HMAP_130803.csv';
 td {
  border: 1px solid grey;
 }
+
+@media print {
+    body { font-size:8pt; }
+    h1 { font-size:10pt; }
+    .noprint { display:none; }
+}
+
 </style>
 </head>
 <body>
@@ -25,9 +32,9 @@ if(isset($_GET['s'])) $sv = htmlspecialchars($_GET['s']);
 if(isset($_GET['t'])) $tv = (int)($_GET['t']);
 if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
 ?>
+<p style="float:right;padding:0;margin:0"><em><?php echo $f ?></em></p>
 <h1>Arvin2 : listing partition HMAP</h1>
-<p><em>Fichier : <?php echo $f ?></em></p>
-<form method="get">
+<form method="get" class="noprint">
 <input name="s" value="<?php echo $sv ?>" />
 <input type="submit" value="Cherche !"/><br/>
 Tri par :<select name="t">
