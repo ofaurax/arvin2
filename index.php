@@ -4,6 +4,12 @@ Arvin2, créé par Olivier FAURAX le 12/8/2013
 Dernière version sur https://github.com/ofaurax/arvin2
 */
 
+require_once('config.php');
+require_once('util.php');
+
+$token = (isset($_GET['token']) ? $_GET['token'] : '');
+$token_ok = (token_found($arv_config['tokens_dir'], $token) >= 2);
+    
 $f = 'Archives_HMAP_130922.csv';
 
 ?>
@@ -43,6 +49,12 @@ Tri par :<select name="t">
 <option value="2" <?php if($tv==2) echo 'selected' ?>>référence</option>
 </select>
 <input type="checkbox" id="l" name="l" <?php if($lv) echo 'checked' ?>/><label for="l">avec instruments</label>
+<?php
+if($token_ok)
+{
+  echo '<input type="hidden" name="token" value="'.$token.'" />';
+}
+?>
 </form>
 <?php
 $l = 1;
@@ -93,6 +105,10 @@ foreach($entete as $c)
         if($i>=4) break;
     }
 }
+if($token_ok)
+{
+    echo '<th>Téléchargement</th>';
+}
 echo '</tr>';
 foreach($data as $l)
 {
@@ -123,6 +139,10 @@ foreach($data as $l)
       {
           if($i>=4) break;
       }
+  }
+  if($token_ok)
+  {
+      echo '<td><a href="list.php?ref='.$l[3].'&token='.$_GET['token'].'">Documents</a></td>';
   }
   echo '</tr>';
 }
