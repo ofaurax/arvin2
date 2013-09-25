@@ -8,7 +8,7 @@ function token_found($tokens_dir, $token)
     {
         if(!preg_match('/([0-9]{8})-([^.]+)/', $d, $m)) continue;
         
-        if($_GET['token'] != $m[2]) continue;
+        if($token != $m[2]) continue;
         $token_found = true;
 
         if(date('Ymd') > $m[1])
@@ -100,6 +100,7 @@ function listing_build($dir)
 function listing_render_list($listing, $token, $ref, $base='.', $filebase='')
 {
     echo '<ul class="listing">';
+    ksort($listing);
     foreach($listing as $k => $v)
     {
         echo '<li>';
