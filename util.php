@@ -106,11 +106,21 @@ function listing_render_list($listing, $token, $ref, $base='.', $filebase='')
         echo '<li>';
         // on peut aussi tester si $v est Array
         if($k == $v)
+        {
+            echo $k.' : ';
             echo '<a href="'.$base.'/dl.php?'.
                 'token='.$token.
                 '&ref='.$ref.
                 '&file='.$filebase.$k.
-                '">'.$k.'</a>';
+                '">téléchargement</a>';
+            echo ' | ';
+            echo '<a href="'.$base.'/dl.php?'.
+                'token='.$token.
+                '&ref='.$ref.
+                '&file='.$filebase.$k.
+                '&inline'.
+                '">voir en ligne</a>';
+        }
         else
         {
             echo $k;
@@ -120,6 +130,5 @@ function listing_render_list($listing, $token, $ref, $base='.', $filebase='')
     }
     echo '</ul>';
 }
-
 
 ?>
