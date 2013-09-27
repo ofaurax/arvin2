@@ -20,7 +20,11 @@ $type = get_type($_GET['file']);
 if($type == 'pdf')
 {
     header('Content-Type: application/pdf;');// charset=iso-8859-1');
-    echo file_get_contents($arv_config['docs_dir'].'/'.$_GET['ref'].'/'.$_GET['file']);
+    if(!isset($_GET['inline']))
+    {
+        header('Content-Disposition: attachment; filename='.basename($_GET['file']));
+    }
+    readfile($arv_config['docs_dir'].'/'.$_GET['ref'].'/'.$_GET['file']);
 }
 elseif($type == 'txt')
 {
