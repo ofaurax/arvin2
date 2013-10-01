@@ -41,6 +41,12 @@ if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
 <p style="float:right;padding:0;margin:0"><em><?php echo $f ?></em></p>
 <h1>Arvin2 : listing partition HMAP</h1>
 <form method="get" class="noprint">
+<?php
+if($token_ok)
+{
+  echo '<input type="hidden" name="token" value="'.$token.'" />';
+}
+?>
 <input name="s" value="<?php echo $sv ?>" />
 <input type="submit" value="Cherche !"/><br/>
 Tri par :<select name="t">
@@ -49,12 +55,6 @@ Tri par :<select name="t">
 <option value="2" <?php if($tv==2) echo 'selected' ?>>référence</option>
 </select>
 <input type="checkbox" id="l" name="l" <?php if($lv) echo 'checked' ?>/><label for="l">avec instruments</label>
-<?php
-if($token_ok)
-{
-  echo '<input type="hidden" name="token" value="'.$token.'" />';
-}
-?>
 </form>
 <?php
 $l = 1;
