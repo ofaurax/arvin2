@@ -153,9 +153,13 @@ foreach($data as $l)
           if($i>=4) break;
       }
   }
-  if($token_ok)
+  if($token_ok && is_dir($arv_config['docs_dir'].'/'.$l[3]))
   {
       echo '<td><a href="list.php?ref='.$l[3].'&token='.$_GET['token'].'">Documents</a></td>';
+  }
+  else
+  {
+      echo '<td></td>';
   }
   echo '</tr>';
 }
