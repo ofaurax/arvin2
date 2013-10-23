@@ -16,7 +16,10 @@ $listing = listing_build($arv_config['docs_dir'].'/'.$_GET['ref']);
 ?>
 <!DOCTYPE html>
 <html>
-<head><title></title></head>
+<head>
+<title>Téléchargements <?php echo $_GET['ref'] ?></title>
+<meta charset="utf-8"/>
+</head>
 <body>
 <h1><a href="index.php?s=<?php echo $_GET['ref'] ?>"><?php echo $_GET['ref'] ?></a></h1>
 <?php

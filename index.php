@@ -93,6 +93,17 @@ switch($tv)
         break;
 }
 
+$pgm = array();
+if(substr($sv, 0, 4) == 'pgm:'
+   && is_file($arv_config['pgm_dir'].'/'.substr($sv, 4).'.txt'))
+{
+    echo '<h2>Programme '.str_replace('_', ' ', substr($sv, 4)).'</h2>';
+    $pgm = file(
+        $arv_config['pgm_dir'].'/'.substr($sv, 4).'.txt',
+        FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+}
+//print_r($pgm);
+
 echo '<table>';
 echo '<tr>';
 $i = 0;
@@ -110,6 +121,7 @@ if($token_ok)
     echo '<th>Téléchargement</th>';
 }
 echo '</tr>';
+
 foreach($data as $l)
 {
   if(!$l || !$l[0]) continue;
@@ -121,6 +133,7 @@ foreach($data as $l)
           && stripos($l[1], $sv) === FALSE
           && stripos($l[2], $sv) === FALSE
           && stripos($l[3], $sv) === FALSE
+          && !in_array($l[3], $pgm)
           )
       continue;
   }
@@ -140,9 +153,13 @@ foreach($data as $l)
           if($i>=4) break;
       }
   }
-  if($token_ok)
+  if($token_ok && is_dir($arv_config['docs_dir'].'/'.$l[3]))
   {
       echo '<td><a href="list.php?ref='.$l[3].'&token='.$_GET['token'].'">Documents</a></td>';
+  }
+  else
+  {
+      echo '<td></td>';
   }
   echo '</tr>';
 }
