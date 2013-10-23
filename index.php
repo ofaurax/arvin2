@@ -120,6 +120,10 @@ if($token_ok)
 {
     echo '<th>Téléchargement</th>';
 }
+else
+  {
+    echo '<th></th>';
+  }
 echo '</tr>';
 
 foreach($data as $l)
@@ -139,18 +143,17 @@ foreach($data as $l)
   }
 
   echo '<tr>';
-  $i = 0;
-  foreach($l as $c)
+  for($i = 0; $i < sizeof($l); $i++)
   {
+    $c = $l[$i];
     echo '<td>';
-    if($i==0) echo '<a href="http://www.youtube.com/results?search_query='.urlencode($c).'">';
+    if($i==0) echo '<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1]).'">';
     echo $c;
     if($i==0) echo '</a>';
     echo '</td>';
-    $i++;
       if(!$lv)
       {
-          if($i>=4) break;
+          if($i>=3) break;
       }
   }
   if($token_ok && is_dir($arv_config['docs_dir'].'/'.$l[3]))
