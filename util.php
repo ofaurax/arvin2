@@ -111,13 +111,13 @@ function listing_render_list($listing, $token, $ref, $base='.', $filebase='')
             echo '<a href="'.$base.'/dl.php?'.
                 'token='.$token.
                 '&amp;ref='.$ref.
-                '&amp;file='.$filebase.$k.
+              '&amp;file='.urlencode($filebase.$k).
                 '">téléchargement</a>';
             echo ' | ';
             echo '<a href="'.$base.'/dl.php?'.
                 'token='.$token.
                 '&amp;ref='.$ref.
-                '&amp;file='.$filebase.$k.
+                '&amp;file='.urlencode($filebase.$k).
                 '&amp;inline'.
                 '">voir en ligne</a>';
         }
