@@ -57,6 +57,21 @@ Tri par :<select name="t">
 <input type="checkbox" id="l" name="l" <?php if($lv) echo 'checked' ?>/><label for="l">avec instruments</label>
 </form>
 <?php
+$tmpd = opendir($arv_config['pgm_dir']);
+echo '<p>Programmes : ';
+$sep = '';
+while($d = readdir($tmpd))
+{
+    if(substr($d, -4) != '.txt') continue;
+    $p = substr($d, 0, -4);
+    echo $sep.'<a href="?token='.$token.'&amp;s=pgm:'.$p.'">'.
+        $p.'</a>'."\n";
+    $sep = ' | ';
+}
+echo '</p>';
+?>
+
+<?php
 $l = 1;
 $of = fopen($f, 'r');
 fgetcsv($of);
