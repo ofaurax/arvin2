@@ -5,6 +5,10 @@ Dernière version sur https://github.com/ofaurax/arvin2
 */
 
 require_once('config.php');
+
+require_once($arv_config['theme_dir'].'/Itheme.php');
+require_once($arv_config['theme_dir'].'/'.$arv_config['theme'].'/theme.php');
+
 require_once('util.php');
 
 $token = (isset($_GET['token']) ? $_GET['token'] : '');
@@ -18,6 +22,11 @@ $f = 'Archives_HMAP_140126.csv';
 <head>
 <title>Arvin2 : archiviste virtuel</title>
 <meta charset="utf-8"/>
+
+<?php
+$theme->getCSS();
+?>
+
 <style type="text/css">
 td {
  border: 1px solid grey;
@@ -32,13 +41,18 @@ td {
 </style>
 </head>
 <body>
+<div id="page">
+<?php
+$theme->getBanner();
+?>
+
 <?php
 $sv = ''; $tv = ''; $lv = 0;
 if(isset($_GET['s'])) $sv = htmlspecialchars($_GET['s']);
 if(isset($_GET['t'])) $tv = (int)($_GET['t']);
 if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
 ?>
-<p style="float:right;padding:0;margin:0"><em><?php echo $f ?></em></p>
+<!-- <p style="float:right;padding:0;margin:0"><em><?php echo $f ?></em></p> -->
 <h1>Arvin2 : listing partition HMAP</h1>
 <form method="get" class="noprint">
 <?php
