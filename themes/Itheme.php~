@@ -1,0 +1,6 @@
+<?php
+
+interface Itheme
+{
+    public function getCSS();
+}
