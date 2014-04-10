@@ -97,7 +97,7 @@ function listing_build($dir)
     return $a;
 }
 
-function listing_render_list($listing, $token, $ref, $base='.', $filebase='')
+function listing_render_list($listing, $token, $ref, $config, $base='.', $filebase='')
 {
     echo '<ul class="listing">';
     ksort($listing);
@@ -113,6 +113,7 @@ function listing_render_list($listing, $token, $ref, $base='.', $filebase='')
                 '&amp;ref='.$ref.
               '&amp;file='.urlencode($filebase.$k).
                 '">téléchargement</a>';
+            echo ' ('.round(filesize($config['docs_dir'].'/'.$ref.'/'.$filebase.$k)/1024).'Ko)';
             echo ' | ';
             echo '<a href="'.$base.'/dl.php?'.
                 'token='.$token.
@@ -124,7 +125,7 @@ function listing_render_list($listing, $token, $ref, $base='.', $filebase='')
         else
         {
             echo $k;
-            listing_render_list($v, $token, $ref, $base, $filebase.$k.'/');
+            listing_render_list($v, $token, $ref, $config, $base, $filebase.$k.'/', $config);
         }
         echo '</li>';
     }
