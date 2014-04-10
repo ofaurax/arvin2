@@ -38,7 +38,7 @@ $theme->getBanner();
 
 <h1><a href="index.php?s=<?php echo $_GET['ref'] ?>"><?php echo $_GET['ref'] ?></a></h1>
 <?php
-listing_render_list($listing, $_GET['token'], $_GET['ref']);
+listing_render_list($listing, $_GET['token'], $_GET['ref'], $arv_config);
 ?>
 </div>
 </body>
