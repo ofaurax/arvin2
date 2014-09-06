@@ -180,9 +180,12 @@ foreach($data as $l)
   {
     $c = $l[$i];
     echo '<td>';
-    if($i==0) echo '<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1]).'">';
     echo $c;
-    if($i==0) echo '</a>';
+    if($i==0)
+    {
+      echo ' [<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1]).'">youtube</a>]';
+      echo ' [<a href="http://infomusique.net/quiksrch.php?vol='.urlencode($c).'">infomusique</a>]';
+    }
     echo '</td>';
       if(!$lv)
       {
