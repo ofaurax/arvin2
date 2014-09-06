@@ -5,6 +5,10 @@ Dernière version sur https://github.com/ofaurax/arvin2
 */
 
 require_once('config.php');
+
+require_once($arv_config['theme_dir'].'/Itheme.php');
+require_once($arv_config['theme_dir'].'/'.$arv_config['theme'].'/theme.php');
+
 require_once('util.php');
 
 $token = (isset($_GET['token']) ? $_GET['token'] : '');
@@ -18,9 +22,18 @@ $f = 'Archives_HMAP_140126.csv';
 <head>
 <title>Arvin2 : archiviste virtuel</title>
 <meta charset="utf-8"/>
+
+<?php
+$theme->getCSS();
+?>
+
 <style type="text/css">
 td {
  border: 1px solid grey;
+}
+
+td, th {
+ padding : 2px;
 }
 
 @media print {
@@ -32,14 +45,19 @@ td {
 </style>
 </head>
 <body>
+<div id="page">
+<?php
+$theme->getBanner();
+?>
+
 <?php
 $sv = ''; $tv = ''; $lv = 0;
 if(isset($_GET['s'])) $sv = htmlspecialchars($_GET['s']);
 if(isset($_GET['t'])) $tv = (int)($_GET['t']);
 if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
 ?>
-<p style="float:right;padding:0;margin:0"><em><?php echo $f ?></em></p>
-<h1>Arvin2 : listing partition HMAP</h1>
+<!-- <p style="float:right;padding:0;margin:0"><em><?php echo $f ?></em></p> -->
+<h1 class="entry-title">Arvin2 : listing partition HMAP</h1>
 <form method="get" class="noprint">
 <?php
 if($token_ok)
@@ -48,8 +66,8 @@ if($token_ok)
 }
 ?>
 <input name="s" value="<?php echo $sv ?>" />
-<input type="submit" value="Cherche !"/><br/>
-Tri par :<select name="t">
+<input type="submit" value="Cherche !"/>
+Tri par <select name="t">
 <option value="0" <?php if($tv==0) echo 'selected' ?>>titre</option>
 <option value="1" <?php if($tv==1) echo 'selected' ?>>auteur</option>
 <option value="2" <?php if($tv==2) echo 'selected' ?>>référence</option>
@@ -112,7 +130,7 @@ $pgm = array();
 if(substr($sv, 0, 4) == 'pgm:'
    && is_file($arv_config['pgm_dir'].'/'.substr($sv, 4).'.txt'))
 {
-    echo '<h2>Programme '.str_replace('_', ' ', substr($sv, 4)).'</h2>';
+    echo '<h2 class="entry-title">Programme '.str_replace('_', ' ', substr($sv, 4)).'</h2>';
     $pgm = file(
         $arv_config['pgm_dir'].'/'.substr($sv, 4).'.txt',
         FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);

@@ -8,4 +8,7 @@ $arv_config['docs_dir'] = $arv_config['private_dir'].'/docs';
 $arv_config['tokens_dir'] = $arv_config['private_dir'].'/tokens';
 $arv_config['pgm_dir'] = $arv_config['private_dir'].'/pgm';
 
+$arv_config['theme_dir'] = './themes';
+$arv_config['theme'] = 'hmap';
+
 ?>

@@ -22,7 +22,7 @@ if($type == 'pdf')
     header('Content-Type: application/pdf;');// charset=iso-8859-1');
     if(!isset($_GET['inline']))
     {
-        header('Content-Disposition: attachment; filename='.basename($_GET['file']));
+        header('Content-Disposition: attachment; filename="'.basename($_GET['file']).'"');
     }
     readfile($arv_config['docs_dir'].'/'.$_GET['ref'].'/'.$_GET['file']);
 }
