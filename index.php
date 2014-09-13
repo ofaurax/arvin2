@@ -14,7 +14,7 @@ require_once('util.php');
 $token = (isset($_GET['token']) ? $_GET['token'] : '');
 $token_ok = (token_found($arv_config['tokens_dir'], $token) >= 2);
     
-$f = 'Archives_HMAP_140126.csv';
+$f = 'Archives_HMAP.csv';
 
 ?>
 <!DOCTYPE html>
