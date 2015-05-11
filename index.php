@@ -30,7 +30,6 @@ $instru_oblig = array(
     'Trompette 1',
     'Cor fa 1 + Mib',
     'Trombone Ut 1',
-    'Tuba sib clé de fa',
     'Baryton sib clé de sol',
     'Basse Sib clé de fa',
     'Batterie',
@@ -58,6 +57,7 @@ array(
     'Trompette 3',
     'Cor fa 2 + Mib',
     'Trombone Ut 2',
+    'Tuba sib clé de fa',
     'Euphonium Ut clé de fa',
     'Euph 1 Sib clé de fa + sol',
     'Basse Sib clé de sol',
@@ -320,7 +320,7 @@ foreach($data as $l)
     echo $c;
     if($i==0)
     {
-      echo ' [<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1]).'">youtube</a>]';
+      echo ' [<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1].', '.$l[$i+2]).'">youtube</a>]';
       echo ' [<a href="http://infomusique.net/quiksrch.php?vol='.urlencode($c).'">infomusique</a>]';
     }
     echo '</td>';
