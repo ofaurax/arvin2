@@ -252,8 +252,8 @@ switch($tv)
                         if($en_stock && in_array($entete[$j], $instru_oblig)) $oblig_compt++;
                         if($en_stock && in_array($entete[$j], $instru_hmap)) $hmap_compt++;
                     }
-                $key = (int)(100*$oblig_compt/count($instru_oblig)).'_'.
-                    (int)(100*$hmap_compt/count($instru_hmap)).'_'.
+                $key = sprintf('%03d', (int)(100*$oblig_compt/count($instru_oblig))).'_'.
+                    sprintf('%03d', (int)(100*$hmap_compt/count($instru_hmap))).'_'.
                     $l[3]; // reference pour le tri en cas d'égalité
                 $data_sorted[$key] = $l;
             }
