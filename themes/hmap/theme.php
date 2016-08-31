@@ -4,7 +4,7 @@ class ThemeHMAP implements Itheme
 {
     public function getCSS()
     {
-echo '<link href="http://www.hmap.fr/wp-content/themes/twentyeleven-hmap/style.css" media="all" type="text/css" rel="stylesheet"></link>';
+echo '<link href="//www.hmap.fr/wp-content/themes/twentyeleven-hmap/style.css" media="all" type="text/css" rel="stylesheet"></link>';
 echo "
 <style type=\"text/css\">
 @font-face {
@@ -28,7 +28,7 @@ h1, h2, h3
 
     public function getBanner()
     {
-        echo '<a href="http://hmap.fr/"><img width="1000" height="288" alt="" src="http://www.hmap.fr/wp-content/uploads/2013/09/entete4.jpg" /></a>';
+        echo '<a href="//hmap.fr/"><img width="1000" height="288" alt="" src="//www.hmap.fr/wp-content/uploads/2013/09/entete4.jpg" /></a>';
     }
 }
 
