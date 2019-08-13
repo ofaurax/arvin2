@@ -103,6 +103,8 @@ function listing_render_list($listing, $token, $ref, $config, $base='.', $fileba
     ksort($listing);
     foreach($listing as $k => $v)
     {
+        if(stristr($k, 'conduc') !== FALSE) continue;
+            
         echo '<li>';
         // on peut aussi tester si $v est Array
         if($k == $v)
