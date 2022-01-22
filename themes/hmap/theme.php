@@ -28,7 +28,7 @@ h1, h2, h3
 
     public function getBanner()
     {
-        echo '<a href="//hmap.fr/"><img width="1000" height="288" alt="" src="//www.hmap.fr/wp-content/uploads/2016/09/entete-2016-1.png" /></a>';
+        echo '<a href="//hmap.fr/arvin2/"><img width="" height="100" alt="" style="" src="//www.hmap.fr/wp-content/uploads/2017/12/logo-droite-2lignes-1024x257.png" /></a>';
     }
 }
 
