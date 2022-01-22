@@ -169,7 +169,7 @@ if(isset($_GET['t'])) $tv = (int)($_GET['t']);
 if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
 ?>
 <!-- <p style="float:right;padding:0;margin:0"><em><?php echo $f ?></em></p> -->
-<h1 class="entry-title">Arvin2 : listing partition HMAP</h1>
+    <h1 class="entry-title">Arvin <span style="color:#ff379b">l'archiviste</span></h1>
 <form method="get" class="noprint">
 <?php
 if($token_ok)
@@ -185,22 +185,10 @@ Tri par <select name="t">
 <option value="2" <?php if($tv==2) echo 'selected' ?>>Référence</option>
 <option value="3" <?php if($tv==3) echo 'selected' ?>>Complétion</option>
 </select>
-<input type="checkbox" id="l" name="l" <?php if($lv) echo 'checked' ?>/><label for="l">avec instruments</label>
+<!--
+     <input type="checkbox" id="l" name="l" <?php if($lv) echo 'checked' ?>/><label for="l">avec instruments</label>
+-->
 </form>
-<?php
-$tmpd = opendir($arv_config['pgm_dir']);
-echo '<p>Programmes : ';
-$sep = '';
-while($d = readdir($tmpd))
-{
-    if(substr($d, -4) != '.txt') continue;
-    $p = substr($d, 0, -4);
-    echo $sep.'<a href="?token='.$token.'&amp;s=pgm:'.$p.'">'.
-        $p.'</a>'."\n";
-    $sep = ' | ';
-}
-echo '</p>';
-?>
 
 <?php
 $l = 1;
@@ -216,9 +204,9 @@ while($l)
 // Trie par la colonne $i
 function tri_ligne($a, $b, $i)
 {
-  if($a[$i] == $b[$i]) return 0;
-  if($a[$i] < $b[$i] ) return -1;
-  return 1;
+    if($a[$i] == $b[$i]) return 0;
+    if($a[$i] < $b[$i] ) return -1;
+    return 1;
 }
 
 function tri_par_titre($a, $b) {return tri_ligne($a, $b, 0);}
@@ -230,36 +218,36 @@ switch($tv)
 {
     default:
     case 0:
-        usort($data, 'tri_par_titre');
-        break;
+    usort($data, 'tri_par_titre');
+    break;
     case 1:
-        usort($data, 'tri_par_auteur');
-        break;
+    usort($data, 'tri_par_auteur');
+    break;
     case 2:
-        usort($data, 'tri_par_ref');
-        break;
+    usort($data, 'tri_par_ref');
+    break;
     case 3:
-        $data_sorted = array();
-        foreach($data as $k => $l)
-            {
-                $oblig_compt = 0;
-                $hmap_compt = 0;
-                for($j=4; $j<count($l);$j++)
-                    {
-                        if(!$entete[$j]) continue; // passe les colonnes vides
-                        
-                        $en_stock = ($l[$j] !== '' && $l[$j] !== '0');
-                        if($en_stock && in_array($entete[$j], $instru_oblig)) $oblig_compt++;
-                        if($en_stock && in_array($entete[$j], $instru_hmap)) $hmap_compt++;
-                    }
-                $key = sprintf('%03d', (int)(100*$oblig_compt/count($instru_oblig))).'_'.
-                    sprintf('%03d', (int)(100*$hmap_compt/count($instru_hmap))).'_'.
-                    $l[3]; // reference pour le tri en cas d'égalité
-                $data_sorted[$key] = $l;
-            }
-        krsort($data_sorted);
-        $data = array_values($data_sorted);
-        break;
+    $data_sorted = array();
+    foreach($data as $k => $l)
+    {
+        $oblig_compt = 0;
+        $hmap_compt = 0;
+        for($j=4; $j<count($l);$j++)
+        {
+            if(!$entete[$j]) continue; // passe les colonnes vides
+            
+            $en_stock = ($l[$j] !== '' && $l[$j] !== '0');
+            if($en_stock && in_array($entete[$j], $instru_oblig)) $oblig_compt++;
+            if($en_stock && in_array($entete[$j], $instru_hmap)) $hmap_compt++;
+        }
+        $key = sprintf('%03d', (int)(100*$oblig_compt/count($instru_oblig))).'_'.
+               sprintf('%03d', (int)(100*$hmap_compt/count($instru_hmap))).'_'.
+               $l[3]; // reference pour le tri en cas d'égalité
+        $data_sorted[$key] = $l;
+    }
+    krsort($data_sorted);
+    $data = array_values($data_sorted);
+    break;
 }
 
 $pgm = array();
@@ -278,113 +266,136 @@ echo '<tr>';
 $i = 0;
 foreach($entete as $c)
 {
-    echo '<th>'.$c.'</th>';
+    echo '<th>'.ucfirst(strtolower($c)).'</th>';
     $i++;
     //if(!$lv)
     {
         if($i>=4) break;
     }
 }
-echo '<th>Complétion<br/>Base / HMAP</th>';
+//echo '<th>Complétion<br/>Base / HMAP</th>'; // Désactivation complétion
 if($token_ok)
 {
     echo '<th>Téléchargement</th>';
 }
 else
-  {
+{
     echo '<th></th>';
-  }
+}
 echo '</tr>';
 
 foreach($data as $l)
 {
-  if(!$l || !$l[0]) continue;
+    if(!$l || !$l[0]) continue;
 
-  if($sv)
-  {
-      if(
-          stripos($l[0], $sv) === FALSE
-          && stripos($l[1], $sv) === FALSE
-          && stripos($l[2], $sv) === FALSE
-          && stripos($l[3], $sv) === FALSE
-          && !in_array($l[3], $pgm)
-          )
-      continue;
-  }
-
-  echo '<tr>';
-  for($i = 0; $i < sizeof($l); $i++)
-  {
-    $c = $l[$i];
-    echo '<td>';
-    echo $c;
-    if($i==0)
+    if($sv)
     {
-      echo ' [<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1].', '.$l[$i+2]).'">youtube</a>]';
-      echo ' [<a href="http://infomusique.net/quiksrch.php?vol='.urlencode($c).'">infomusique</a>]';
+        if(
+            stripos($l[0], $sv) === FALSE
+            && stripos($l[1], $sv) === FALSE
+            && stripos($l[2], $sv) === FALSE
+            && stripos($l[3], $sv) === FALSE
+            && !in_array($l[3], $pgm)
+        )
+        continue;
     }
-    echo '</td>';
-    //if(!$lv)
-      {
-          if($i>=3) break;
-      }
-  }
 
-  $oblig_compt = 0;
-  $hmap_compt = 0;
-  for($j=4; $j<count($l);$j++)
-      {
-          if(!$entete[$j]) continue; // passe les colonnes vides
-          
-          $en_stock = ($l[$j] !== '' && $l[$j] !== '0');
-          if($en_stock && in_array($entete[$j], $instru_oblig)) $oblig_compt++;
-          if($en_stock && in_array($entete[$j], $instru_hmap)) $hmap_compt++;
-      }
-  echo '<td>'.(int)(100*$oblig_compt/count($instru_oblig)).'% / '.
-      (int)(100*$hmap_compt/count($instru_hmap)).'%</td>';
-  
-  if($token_ok && is_dir($arv_config['docs_dir'].'/'.$l[3]))
-  {
-      echo '<td><a href="list.php?ref='.$l[3].'&token='.$_GET['token'].'">Documents</a></td>';
-  }
-  else
-  {
-      echo '<td></td>';
-  }
-  echo '</tr>';
+    echo '<tr>';
+    for($i = 0; $i < sizeof($l); $i++)
+    {
+        $c = $l[$i];
+        echo '<td>';
+        echo $c;
+        if($i==0)
+        {
+            echo ' [<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1].', '.$l[$i+2]).'">youtube</a>]';
+            echo ' [<a href="http://infomusique.net/quiksrch.php?vol='.urlencode($c).'">infomusique</a>]';
+        }
+        echo '</td>';
+        //if(!$lv)
+        {
+            if($i>=3) break;
+        }
+    }
 
-  if($lv)
-      {
-          echo '</table>';
-          //var_dump($l);
-          echo '<ul>';
-          $oblig_compt = 0;
-          for($j=4; $j<count($l);$j++)
-              {
-                  if(!$entete[$j]) continue; // passe les colonnes vides
+    $oblig_compt = 0;
+    $hmap_compt = 0;
+    for($j=4; $j<count($l);$j++)
+    {
+        if(!$entete[$j]) continue; // passe les colonnes vides
+        
+        $en_stock = ($l[$j] !== '' && $l[$j] !== '0');
+        if($en_stock && in_array($entete[$j], $instru_oblig)) $oblig_compt++;
+        if($en_stock && in_array($entete[$j], $instru_hmap)) $hmap_compt++;
+    }
+    /*
+    // Désactivation complétion
+    echo '<td>'.(int)(100*$oblig_compt/count($instru_oblig)).'% / '.
+         (int)(100*$hmap_compt/count($instru_hmap)).'%</td>';
+    */
+    if($token_ok && is_dir($arv_config['docs_dir'].'/'.$l[3]))
+    {
+        echo '<td><a href="list.php?ref='.$l[3].'&token='.$_GET['token'].'">Documents</a></td>';
+    }
+    else
+    {
+        echo '<td></td>';
+    }
+    echo '</tr>';
 
-                  $class = '';
-                  if(in_array($entete[$j], $instru_hmap)) $class .= ' hmap';
-                  if(in_array($entete[$j], $instru_oblig)) $class .= ' oblig';
+    if($lv)
+    {
+        echo '</table>';
+        //var_dump($l);
+        echo '<ul>';
+        $oblig_compt = 0;
+        for($j=4; $j<count($l);$j++)
+        {
+            if(!$entete[$j]) continue; // passe les colonnes vides
 
-                  $en_stock = ($l[$j] !== '' && $l[$j] !== '0');
-                  if(!$en_stock) $class .= ' manquant';
-                  if($en_stock && in_array($entete[$j], $instru_oblig)) $oblig_compt++;
+            $class = '';
+            if(in_array($entete[$j], $instru_hmap)) $class .= ' hmap';
+            if(in_array($entete[$j], $instru_oblig)) $class .= ' oblig';
 
-                  echo '<li';
-                  if($class) echo ' class="'.$class.'"';
-                  echo '>';
-                  echo $entete[$j];
-                  if($en_stock) echo ' ('.$l[$j].')';
-                  echo '</li>';
-              }
-          echo '</ul>';
+            $en_stock = ($l[$j] !== '' && $l[$j] !== '0');
+            if(!$en_stock) $class .= ' manquant';
+            if($en_stock && in_array($entete[$j], $instru_oblig)) $oblig_compt++;
 
-          echo '<table>';
-      }
+            echo '<li';
+            if($class) echo ' class="'.$class.'"';
+            echo '>';
+            echo $entete[$j];
+            if($en_stock) echo ' ('.$l[$j].')';
+            echo '</li>';
+        }
+        echo '</ul>';
+
+        echo '<table>';
+    }
 
 }
 echo '</table>';
+
+// Listing programmes
+$tmpd = opendir($arv_config['pgm_dir']);
+echo '<h3>Programmes</h3>';
+$sep = '';
+$programmes = [];
+while($d = readdir($tmpd))
+{
+    $programmes[] = $d;
+}
+sort($programmes);
+foreach($programmes as $d)
+{
+    if(substr($d, -4) != '.txt') continue;
+    $p = substr($d, 0, -4);
+    echo $sep.'<a href="?token='.$token.'&amp;s=pgm:'.$p.'">'.
+         $p.'</a>'."\n";
+    $sep = ' | ';
+}
+//echo '</p>';
+
 
 ?>
 </body>
