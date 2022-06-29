@@ -100,29 +100,32 @@ function listing_build($dir)
 function listing_render_list($listing, $token, $ref, $config, $base='.', $filebase='')
 {
     echo '<ul class="listing">';
-    ksort($listing);
+
+    //ksort($listing); // tri par clé
+    uksort($listing, "strnatcmp"); // tri naturel par clé
+
     foreach($listing as $k => $v)
     {
         if(stristr($k, 'conduc') !== FALSE) continue;
-            
+
         echo '<li>';
         // on peut aussi tester si $v est Array
         if($k == $v)
         {
             echo $k.' : ';
             echo '<a href="'.$base.'/dl.php?'.
-                'token='.$token.
-                '&amp;ref='.$ref.
-              '&amp;file='.urlencode($filebase.$k).
-                '">téléchargement</a>';
+                 'token='.$token.
+                 '&amp;ref='.$ref.
+                 '&amp;file='.urlencode($filebase.$k).
+                 '">téléchargement</a>';
             echo ' ('.round(filesize($config['docs_dir'].'/'.$ref.'/'.$filebase.$k)/1024).'Ko)';
             echo ' | ';
             echo '<a href="'.$base.'/dl.php?'.
-                'token='.$token.
-                '&amp;ref='.$ref.
-                '&amp;file='.urlencode($filebase.$k).
-                '&amp;inline'.
-                '">voir en ligne</a>';
+                 'token='.$token.
+                 '&amp;ref='.$ref.
+                 '&amp;file='.urlencode($filebase.$k).
+                 '&amp;inline'.
+                 '">voir en ligne</a>';
         }
         else
         {
