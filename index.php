@@ -329,10 +329,10 @@ foreach($data as $l)
         if($en_stock && in_array($entete[$j], $instru_hmap)) $hmap_compt++;
     }
     /*
-    // Désactivation complétion
-    echo '<td>'.(int)(100*$oblig_compt/count($instru_oblig)).'% / '.
-         (int)(100*$hmap_compt/count($instru_hmap)).'%</td>';
-    */
+       // Désactivation complétion
+       echo '<td>'.(int)(100*$oblig_compt/count($instru_oblig)).'% / '.
+       (int)(100*$hmap_compt/count($instru_hmap)).'%</td>';
+     */
     if($token_ok && is_dir($arv_config['docs_dir'].'/'.$l[3]))
     {
         echo '<td><a href="list.php?ref='.$l[3].'&token='.$_GET['token'].'">Documents</a></td>';
@@ -378,21 +378,38 @@ echo '</table>';
 
 // Listing programmes
 $tmpd = opendir($arv_config['pgm_dir']);
+
 echo '<h3>Programmes</h3>';
 $sep = '';
 $programmes = [];
+
 while($d = readdir($tmpd))
 {
-    $programmes[] = $d;
+    if($d[0] == '.') continue;
+    $r = preg_match("/(\d+)/", $d, $m);
+    if($r)
+    {
+        $k = $m[0];
+    }
+    else
+        $k = "Autre";
+    $programmes[$k][] = $d;
 }
-sort($programmes);
-foreach($programmes as $d)
+krsort($programmes);
+
+foreach($programmes as $k => $p)
 {
-    if(substr($d, -4) != '.txt') continue;
-    $p = substr($d, 0, -4);
-    echo $sep.'<a href="?token='.$token.'&amp;s=pgm:'.$p.'">'.
-         $p.'</a>'."\n";
-    $sep = ' | ';
+    echo $k." : ";
+    $sep = '';
+    foreach($p as $d)
+    {
+        if(substr($d, -4) != '.txt') continue;
+        $p = substr($d, 0, -4);
+        echo $sep.'<a href="?token='.$token.'&amp;s=pgm:'.$p.'">'.
+             $p.'</a>'."\n";
+        $sep = ' | ';
+    }
+    echo '<br/>';
 }
 //echo '</p>';
 
