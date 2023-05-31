@@ -309,7 +309,7 @@ foreach($data as $l)
         if($i==0)
         {
             echo ' [<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1].', '.$l[$i+2]).'">youtube</a>]';
-            echo ' [<a href="http://infomusique.net/quiksrch.php?vol='.urlencode($c).'">infomusique</a>]';
+            echo ' [<a href="http://musicainfo.net/quiksrch.php?vol='.urlencode($c).'">musicainfo</a>]';
         }
         echo '</td>';
         //if(!$lv)
