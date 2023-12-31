@@ -106,26 +106,30 @@ function listing_render_list($listing, $token, $ref, $config, $base='.', $fileba
 
     foreach($listing as $k => $v)
     {
-        if(stristr($k, 'conduc') !== FALSE) continue;
+        $is_conduc = (stristr($k, 'conduc') !== FALSE);
 
         echo '<li>';
         // on peut aussi tester si $v est Array
         if($k == $v)
         {
-            echo $k.' : ';
-            echo '<a href="'.$base.'/dl.php?'.
+            echo $k;
+            if(!$is_conduc)
+            {
+                echo ' : ';
+                echo '<a href="'.$base.'/dl.php?'.
                  'token='.$token.
                  '&amp;ref='.$ref.
                  '&amp;file='.urlencode($filebase.$k).
                  '">téléchargement</a>';
-            echo ' ('.round(filesize($config['docs_dir'].'/'.$ref.'/'.$filebase.$k)/1024).'Ko)';
-            echo ' | ';
-            echo '<a href="'.$base.'/dl.php?'.
+                echo ' ('.round(filesize($config['docs_dir'].'/'.$ref.'/'.$filebase.$k)/1024).'Ko)';
+                echo ' | ';
+                echo '<a href="'.$base.'/dl.php?'.
                  'token='.$token.
                  '&amp;ref='.$ref.
                  '&amp;file='.urlencode($filebase.$k).
                  '&amp;inline'.
                  '">voir en ligne</a>';
+            }
         }
         else
         {
