@@ -4,7 +4,7 @@ A script to search in HMAP (http://hmap.fr/) set of music scores. Basically, a P
 
 ## Document access token
 
-Tokens are used to regulate access to scores. Nobody can access to scores without it, and it has a limit date of activation.
+Tokens are used to regulate access to scores. Nobody can access to scores without it, and it has an expiration date.
 
 If the used link to the scores is used for malicious purpose, it can be quickly deactivated to stop access from the leaked link. Then a new one can be created to provide a new access to target users.
 
@@ -20,7 +20,7 @@ Scores are stored in directory `private/docs`.
 
 To add a new set of music scores here, create a new directory with the code of the score in csv (ex: "F058" for "1ere Symphonie en Ut Majeur" described in `Archives_HMAP_140126.csv`.
 
-Then in that directory, add all scores in PDF format.
+Then in that directory, add all scores.
 
 ## Run in docker
 
