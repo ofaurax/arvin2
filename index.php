@@ -170,6 +170,54 @@ if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
 ?>
 <!-- <p style="float:right;padding:0;margin:0"><em><?php echo $f ?></em></p> -->
     <h1 class="entry-title">Arvin <span style="color:#ff379b">l'archiviste</span></h1>
+
+<!-- Select program -->
+<form method="get" class="noprint">
+    <?php
+    if($token_ok)
+    {
+    echo '<input type="hidden" name="token" value="'.$token.'" />';
+    }
+    ?>
+    Programme :
+    <select name="s">
+        <?php
+            $tmpd = opendir($arv_config['pgm_dir']);
+            $programmes = [];
+            while($d = readdir($tmpd))
+            {
+                if($d[0] == '.') continue;
+                $r = preg_match("/(\d+)/", $d, $m);
+                if($r)
+                {
+                    $k = $m[0];
+                }
+                else
+                    $k = "Autre";
+                $programmes[$k][] = $d;
+            }
+            krsort($programmes);
+
+            foreach($programmes as $k => $p)
+            {
+                foreach($p as $d)
+                {
+                    if(substr($d, -4) != '.txt') continue;
+                    $p = substr($d, 0, -4);
+                    echo "<option value=\"pgm:{$p}\"";
+                    if($sv == "pgm:{$p}") echo " selected";
+                    echo ">{$p}</option>";
+                }
+            }
+            echo "<option value=\"\"";
+            if(substr($sv, 0, 4) != 'pgm:') echo " selected";
+            echo ">Tous</option>";
+        ?>
+    </select>
+    <input type="submit" value="Go"/>
+</form>
+<br/>
+
 <form method="get" class="noprint">
 <?php
 if($token_ok)
@@ -376,41 +424,6 @@ foreach($data as $l)
 }
 echo '</table>';
 
-// Listing programmes
-$tmpd = opendir($arv_config['pgm_dir']);
-
-echo '<h3>Programmes</h3>';
-$sep = '';
-$programmes = [];
-
-while($d = readdir($tmpd))
-{
-    if($d[0] == '.') continue;
-    $r = preg_match("/(\d+)/", $d, $m);
-    if($r)
-    {
-        $k = $m[0];
-    }
-    else
-        $k = "Autre";
-    $programmes[$k][] = $d;
-}
-krsort($programmes);
-
-foreach($programmes as $k => $p)
-{
-    echo $k." : ";
-    $sep = '';
-    foreach($p as $d)
-    {
-        if(substr($d, -4) != '.txt') continue;
-        $p = substr($d, 0, -4);
-        echo $sep.'<a href="?token='.$token.'&amp;s=pgm:'.$p.'">'.
-             $p.'</a>'."\n";
-        $sep = ' | ';
-    }
-    echo '<br/>';
-}
 //echo '</p>';
 
 
