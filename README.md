@@ -8,15 +8,15 @@ Tokens are used to regulate access to scores. Nobody can access to scores withou
 
 If the used link to the scores is used for malicious purpose, it can be quickly deactivated to stop access from the leaked link. Then a new one can be created to provide a new access to target users.
 
-To create a new token, create a file in repository `private/tokens/` in the format `YYYYMMDD-KEY.txt`, by replacing `YYYYMMDD` by a given date (in format year-mont-day) which is the limit of activation of the token (passed this date, the token is disabled) and `KEY` by any alphanumeric string of characters (preferably randomly generated).
-The file must just be created, there is nothing to add in it.
+To create a new token, create a file in repository `private/tokens/` in the format `YYYYMMDD-KEY.txt`, by replacing `YYYYMMDD` by a given date (in format year-month-day) which is the limit of activation of the token (passed this date, the token is disabled) and `KEY` by any alphanumeric string of characters (preferably randomly generated).
+The content of this file is ignored.
 
 To access to the website with the token, the URL shall be: *www.mywebsite.com/?token=KEY* with *KEY* the actual `KEY` used at the end of the created file name.
 
 
 ## Document storage
 
-Scores are stored in directory `private/docs`.
+Scores are stored in subdirectories of `private/docs`.
 
 To add a new set of music scores here, create a new directory with the code of the score in csv (ex: "F058" for "1ere Symphonie en Ut Majeur" described in `Archives_HMAP_140126.csv`.
 
