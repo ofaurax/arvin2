@@ -1,0 +1,43 @@
+name: PHP check
+on:
+  push
+jobs:
+
+  php-check-latest:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4      
+      - name: Setup PHP latest
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: latest
+      - name: PHP version
+        run: php -v
+      - name: PHP Lint
+        run: for f in *.php; do php -l $f ; done
+
+  php-check-7_4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4      
+      - name: Setup PHP 7.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 7.4
+      - name: PHP Lint
+        run: for f in *.php; do php -l $f ; done
+
+  php-check-8_4:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4      
+      - name: Setup PHP 8.4
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: 8.4
+      - name: PHP Lint
+        run: for f in *.php; do php -l $f ; done
+
