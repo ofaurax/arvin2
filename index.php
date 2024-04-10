@@ -176,7 +176,7 @@ if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
     <?php
     if($token_ok)
     {
-    echo '<input type="hidden" name="token" value="'.$token.'" />';
+        echo '<input type="hidden" name="token" value="'.$token.'" />';
     }
     ?>
     Programme :
@@ -193,7 +193,9 @@ if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
                     $k = $m[0];
                 }
                 else
+                {
                     $k = "Autre";
+                }
                 $programmes[$k][] = $d;
             }
             krsort($programmes);
@@ -211,10 +213,10 @@ if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
             }
             echo "<option value=\"\"";
             if(substr($sv, 0, 4) != 'pgm:') echo " selected";
-            echo ">Tous</option>";
+            echo ">Tous les morceaux</option>";
         ?>
     </select>
-    <input type="submit" value="Go"/>
+    <input type="submit" value="Voir le programme"/>
 </form>
 <br/>
 
