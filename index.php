@@ -103,7 +103,8 @@ $instru_hmap = array_merge($instru_hmap, $instru_oblig);
 <html>
 <head>
 <title>Arvin2 : archiviste virtuel</title>
-<meta charset="utf-8"/>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <?php
 $theme->getCSS();
@@ -143,6 +144,13 @@ li {
 }
 .hmap {
     color: black;
+}
+
+.score {
+  margin: 0.5em;
+  padding-left:0.5em;
+  width:19rem;
+  border-left:2px grey solid;
 }
 
 @media print {
@@ -224,11 +232,11 @@ if(isset($_GET['l'])) $lv = ($_GET['l'] ? true : false);
 <?php
 if($token_ok)
 {
-  echo '<input type="hidden" name="token" value="'.$token.'" />';
+  echo '<input type="hidden" name="token" value="'.$token.'">';
 }
 ?>
-<input name="s" value="<?php echo $sv ?>" />
-<input type="submit" value="Cherche !"/>
+<input name="s" value="<?php echo $sv ?>">
+<input type="submit" value="Cherche !">
 Tri par <select name="t">
 <option value="0" <?php if($tv==0) echo 'selected' ?>>Titre</option>
 <option value="1" <?php if($tv==1) echo 'selected' ?>>Auteur</option>
@@ -236,7 +244,7 @@ Tri par <select name="t">
 <option value="3" <?php if($tv==3) echo 'selected' ?>>Complétion</option>
 </select>
 <!--
-     <input type="checkbox" id="l" name="l" <?php if($lv) echo 'checked' ?>/><label for="l">avec instruments</label>
+     <input type="checkbox" id="l" name="l" <?php if($lv) echo 'checked' ?>><label for="l">avec instruments</label>
 -->
 </form>
 
@@ -311,28 +319,7 @@ if(substr($sv, 0, 4) == 'pgm:'
 }
 //print_r($pgm);
 
-echo '<table>';
-echo '<tr>';
-$i = 0;
-foreach($entete as $c)
-{
-    echo '<th>'.ucfirst(strtolower($c)).'</th>';
-    $i++;
-    //if(!$lv)
-    {
-        if($i>=4) break;
-    }
-}
-//echo '<th>Complétion<br/>Base / HMAP</th>'; // Désactivation complétion
-if($token_ok)
-{
-    echo '<th>Téléchargement</th>';
-}
-else
-{
-    echo '<th></th>';
-}
-echo '</tr>';
+echo '<div id="partlist" style="display:inline-flex;flex-wrap:wrap">';
 
 foreach($data as $l)
 {
@@ -350,18 +337,20 @@ foreach($data as $l)
         continue;
     }
 
-    echo '<tr>';
+    echo "\n".'<div class="score">';
     for($i = 0; $i < sizeof($l); $i++)
     {
         $c = $l[$i];
-        echo '<td>';
-        echo $c;
+        echo "\n".'<div>';
         if($i==0)
         {
+            echo '<h2>'.$c.'</h2>';
             echo ' [<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1].', '.$l[$i+2]).'">youtube</a>]';
             echo ' [<a href="http://musicainfo.net/quiksrch.php?vol='.urlencode($c).'">musicainfo</a>]';
         }
-        echo '</td>';
+        else
+            echo $c;
+        echo '</div>';
         //if(!$lv)
         {
             if($i>=3) break;
@@ -385,17 +374,13 @@ foreach($data as $l)
      */
     if($token_ok && is_dir($arv_config['docs_dir'].'/'.$l[3]))
     {
-        echo '<td><a href="list.php?ref='.$l[3].'&token='.$_GET['token'].'">Documents</a></td>';
+        echo '<div><a href="list.php?ref='.$l[3].'&token='.$_GET['token'].'" style="font-size:150%;font-weight:bolder;text-decoration:underline">Télécharger</a></div>';
     }
-    else
-    {
-        echo '<td></td>';
-    }
-    echo '</tr>';
+    echo "</div>\n";
 
     if($lv)
     {
-        echo '</table>';
+        echo '</div>';
         //var_dump($l);
         echo '<ul>';
         $oblig_compt = 0;
@@ -420,15 +405,16 @@ foreach($data as $l)
         }
         echo '</ul>';
 
-        echo '<table>';
+        echo '<div>';
     }
 
 }
-echo '</table>';
+echo '</div>';
 
 //echo '</p>';
 
 
 ?>
+</div>
 </body>
 </html>
