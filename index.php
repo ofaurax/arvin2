@@ -151,6 +151,27 @@ li {
     .noprint { display:none; }
 }
 
+.icon1 {
+    margin: 0px;
+    padding: 2px;
+    background: white;
+    color: white;
+    max-height: 26px;
+    text-align: center;
+    float: inline-start;
+}
+
+.icon2 {
+    margin: 0px;
+    padding: 0px;
+    background: white;
+    color: white;
+    max-height: 15px;
+    text-align: center;
+    vertical-align: middle;
+    float: none;
+}
+
 </style>
 </head>
 <body>
@@ -177,6 +198,7 @@ if($token_ok)
   echo '<input type="hidden" name="token" value="'.$token.'" />';
 }
 ?>
+<img class="icon1" src="pictures/magnifying-glass-tilted-left-svgrepo-com.svg">
 <input name="s" value="<?php echo $sv ?>" />
 <input type="submit" value="Cherche !"/>
 Tri par <select name="t">
@@ -308,8 +330,8 @@ foreach($data as $l)
         echo $c;
         if($i==0)
         {
-            echo ' [<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1].', '.$l[$i+2]).'">youtube</a>]';
-            echo ' [<a href="http://musicainfo.net/quiksrch.php?vol='.urlencode($c).'">musicainfo</a>]';
+            echo ' [<a href="http://www.youtube.com/results?search_query='.urlencode($c.', '.$l[$i+1].', '.$l[$i+2]).'"><img class="icon2" src="pictures/youtube-svgrepo-com.svg" alt="youtube-logo"> youtube</a>]';
+            echo ' [<a href="http://musicainfo.net/quiksrch.php?vol='.urlencode($c).'"><img class="icon2" src="pictures/web-svgrepo-com.svg" alt="web-logo">musicainfo</a>]';
         }
         echo '</td>';
         //if(!$lv)
@@ -335,7 +357,7 @@ foreach($data as $l)
      */
     if($token_ok && is_dir($arv_config['docs_dir'].'/'.$l[3]))
     {
-        echo '<td><a href="list.php?ref='.$l[3].'&token='.$_GET['token'].'">Documents</a></td>';
+        echo '<td><a href="list.php?ref='.$l[3].'&token='.$_GET['token'].'"><img class="icon2" src="pictures/directory-documents-svgrepo-com.svg" alt="directory-logo">Documents</a></td>';
     }
     else
     {

@@ -120,7 +120,7 @@ function listing_render_list($listing, $token, $ref, $config, $base='.', $fileba
                  'token='.$token.
                  '&amp;ref='.$ref.
                  '&amp;file='.urlencode($filebase.$k).
-                 '">téléchargement</a>';
+                 '"><img class="icon2" src="pictures/download-alt-4-svgrepo-com.svg" alt="download-logo">téléchargement</a>';
                 echo ' ('.round(filesize($config['docs_dir'].'/'.$ref.'/'.$filebase.$k)/1024).'Ko)';
                 echo ' | ';
                 echo '<a href="'.$base.'/dl.php?'.
@@ -128,7 +128,7 @@ function listing_render_list($listing, $token, $ref, $config, $base='.', $fileba
                  '&amp;ref='.$ref.
                  '&amp;file='.urlencode($filebase.$k).
                  '&amp;inline'.
-                 '">voir en ligne</a>';
+                 '"><img class="icon2" src="pictures/eye-svgrepo-com.svg" alt="eye-logo">voir en ligne</a>';
             }
         }
         else
