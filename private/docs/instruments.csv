@@ -1,0 +1,23 @@
+name_fr,name_eng,tune,regex_fr,regex_en
+basson,bassoon,ut
+batterie,drums,
+bugle,flugelhorn,Bb
+clarinette,clarinet,A;Bb;Eb
+clarinette basse,clarinet bass,
+claviers,,
+conducteur,,
+cor,horn,Eb;F
+cornet,cornet,Bb
+euphonium,euphonium,Bb;C
+flute,flute,
+hautbois,oboe,
+mallet,,
+percussion,,percu(ssion)?
+piccolo,piccolo,
+saxophone alto,,sax[o|ophone]? alto
+saxophone baryton,,sax[o|ophone]? baryton
+saxophone tenor,,sax[o|ophone]? tenor
+timbales,timballes,,,
+trompette,trumpet,Bb;C
+trombone,trombone,C
+tuba,tuba,Bb;C

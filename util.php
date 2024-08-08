@@ -141,4 +141,28 @@ function listing_render_list($listing, $token, $ref, $config, $base='.', $fileba
     echo '</ul>';
 }
 
+function get_instruments($csvfilename)
+{
+    $res = array();
+    $line = 1;
+    $csvfile = fopen($csvfilename, 'r');
+    fgetcsv($csvfile);
+    $entete = fgetcsv($csvfile);
+    while($line)
+    {
+        $line = fgetcsv($csvfile);
+        if($line[0] != '')
+        {
+            $instr = array();
+            $instr["name_fr"]  = $line[0];
+            $intsr["name_en"]  = $line[1];
+            $instr["tune"]     = $line[2];
+            $instr["regex_fr"] = $line[3];
+            $instr["regex_en"] = $line[4];
+            $res[$instr["name_fr"]] = $instr;
+        }
+    }
+    return $res;
+}
+
 ?>
